@@ -1,0 +1,73 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --background-color: #000000;
+}
+
+body {
+    margin: 0;
+    background-color: var(--background-color);
+    overflow: hidden; /* スクロールバーを無効 */
+}
+
+.tile-container {
+    display: grid;
+    gap: 5px;
+    padding: 10px 20px;
+    width: 100%;
+    height: 100vh;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    perspective: 500px;
+}
+
+.tile-item {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    transform-style: preserve-3d; /* 子要素を3Dオブジェクト化する */
+    transition: transform 0.5s ease-out;
+}
+
+.tile-item.animate {
+    animation: tile-hover 1s forwards;
+}
+
+@keyframes tile-hover {
+    0% {
+        transform: rotateX(0deg);
+    }
+    100% {
+        transform: rotateX(-360deg);
+    }
+}
+
+.tile-front, .tile-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+}
+
+.tile-front {
+    background-color: #1a1a1a;
+}
+
+.tile-back {
+    background-color: #F6E10E;
+    transform: rotateX(180deg);
+}
+
+@media (min-width: 768px) {
+    .tile-container {
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(6, 1fr);
+    }
+}
